@@ -12,21 +12,38 @@ The tool itself only handles the information flow
 among those installation components and controles
 their execution order.
 
-Each _installation component_ is described by
-a yaml document (`deployment.yaml`) containing
-the configuration settings for a dedicated set of
-installation plugins and a yaml document (`component.yaml`)
-describing the used components.
+<p align="center">
 
-The installation plugins are shell modules delivered
-with the tool itself or provided by the installation content.
+<img src="doc/sow0.png" alt="Processing" width="400"/>
 
-After installation a component may offer (_export_) (structured yaml)
-values to be used by other components, again described
+</p>
+
+Each _installation component_ is described by a set of
+yaml documents. This is used together with an installation
+configuration and information provided by used components
+to generate a deployment configuration  and a contract intended
+to be used by other components.
+
+The deployment configuration consists of a 
+sequence of plugin execution requests and their configuration.
+
+The installation plugins are shell modules or executables
+delivered with the tool itself or provided by the installation content.
+
+
+### Overview
+
+A _component_ is described by a set of yaml documents.
+The `component.yaml` decsribes the dependencies to other
+components. A `deployment.yaml` describes the configuration
+for the plugin executions. The component may 
+(_export_) (structured yaml)
+values to be used by other components (the contract), again described
 by a yaml document (`export.yaml`) and keep a state in form
 of a yaml document (`state.yaml`) or other files.
 
-The information flow is described by the component dependencies.
+The information flow is described by the component dependencies
+and an installation configuration.
 Therefore _Sow_ processes the yaml documents with the
 [_spiff++_ in-domaim templating engine](https://github.com/mandelsoft/spiff/blob/master/README.md)
 by providing appropriate merge stubs based on
@@ -34,7 +51,7 @@ the exports of the dependencies and the last local state.
 
 <p align="center">
 
-![Overview](doc/sow1.png)
+![Processing](doc/sow1.png)
 
 </p>
 
